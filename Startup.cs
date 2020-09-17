@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -52,6 +53,16 @@ namespace MvcMovie
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            #if DEBUG
+            try
+            {
+                File.WriteAllText("browsersync-update.txt", DateTime.Now.ToString());
+            }
+            catch { 
+                // ignore
+            }
+#endif
         }
     }
 }
